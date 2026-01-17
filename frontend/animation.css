@@ -1,0 +1,117 @@
+.modal-backdrop {
+  transition: opacity 0.22s ease-out;
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.add-modal .btn-save,
+.add-modal .btn-cancel,
+.add-modal .add-close-btn {
+  transition:
+    transform 0.12s ease-out,
+    box-shadow 0.12s ease-out,
+    background 0.12s ease-out,
+    color 0.12s ease-out;
+}
+
+.add-modal .btn-save:hover,
+.add-modal .btn-cancel:hover,
+.add-modal .add-close-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.9);
+}
+
+.cover-preview img {
+  animation: cover-pop 0.18s ease-out;
+}
+
+@keyframes cover-pop {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#choose-album-backdrop .add-modal {
+  transform: translateY(-20px);
+  opacity: 0;
+  transition:
+    transform 0.22s ease-out,
+    opacity 0.22s ease-out;
+}
+
+#choose-album-backdrop.show .add-modal {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#choose-album-select {
+  transition:
+    box-shadow 0.12s ease-out,
+    border-color 0.12s ease-out,
+    background-color 0.12s ease-out;
+}
+
+#choose-album-select:hover {
+  border-color: rgba(96, 165, 250, 0.9);
+}
+
+#choose-album-select:focus {
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7);
+  border-color: rgba(96, 165, 250, 1);
+}
+
+.volume-icon i {
+  transition: color 0.15s ease, transform 0.12s ease;
+}
+
+.volume-icon i:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.btn {
+  transition:
+    color 0.15s ease,
+    transform 0.1s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+#choose-album-confirm {
+  transition:
+    transform 0.12s ease-out,
+    box-shadow 0.12s ease-out;
+}
+
+#choose-album-confirm:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.9);
+}
+
+.playlist-item:hover .playlist-name,
+.playlist-item.active .playlist-name {
+  color: #e5f0ff;
+}
+
+.playlist-item:hover .playlist-artist,
+.playlist-item.active .playlist-artist {
+  color: #9fb5ff;
+}
+
+.playlist-item:hover .playlist-index,
+.playlist-item.active .playlist-index {
+  color: #d1ddff;
+}
+
+

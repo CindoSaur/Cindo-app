@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cindo-music</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="animation.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="global-wave-strip">
+        <div class="global-wave wave1"></div>
+        <div class="global-wave wave2"></div>
+      </div>
+
+      <div class="app">
+        <div class="main-layout">
+          <!-- Player + Library + Recent -->
+          <div class="player-card">
+            <div class="player-header">
+              <div class="player-header-left">
+                <span class="app-name">Cindo-music</span>
+                <span class="now-playing">Now Playing</span>
+              </div>
+            </div>
+
+            <div class="player-main">
+              <div class="cover-image">
+                <i class="fa-solid fa-music"></i>
+              </div>
+              <div class="track-info">
+                <div class="track-title">No song</div>
+                <div class="track-artist">Select files to play</div>
+                <div class="progress-bar">
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="0"
+                    class="progress-range"
+                  />
+                </div>
+                <div class="time-row">
+                  <span class="current-time">00:00</span>
+                  <span class="total-time">00:00</span>
+                </div>
+              </div>
+            </div>
+
+            <audio id="player"></audio>
+
+            <div class="player-bottom">
+              <div class="volume-bar">
+                <div class="volume-icon">
+                  <i class="fa-solid fa-volume-high"></i>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="80"
+                  class="volume-range"
+                />
+              </div>
+
+              <div class="controls">
+                <button class="btn btn-prev" id="prevBtn">
+                  <i class="fa-solid fa-backward-step"></i>
+                </button>
+                <button class="btn btn-play" id="playPauseBtn">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+                <button class="btn btn-next" id="nextBtn">
+                  <i class="fa-solid fa-forward-step"></i>
+                </button>
+                <button class="btn btn-shuffle" id="shuffleBtn">
+                  <i class="fa-solid fa-shuffle"></i>
+                </button>
+                <button class="btn btn-loop" id="loopBtn">
+                  <i class="fa-solid fa-repeat"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="library-block">
+              <div class="library-title">Library</div>
+              <div class="library-list" id="libraryList"></div>
+            </div>
+
+            <div class="recent-block">
+              <div class="recent-title">Recently played</div>
+              <div class="recent-list" id="recentList"></div>
+            </div>
+          </div>
+
+          <!-- Playlist panel -->
+          <div class="playlist-panel">
+            <div class="playlist-header">
+              <button class="playlist-back-btn" id="playlistBackBtn">
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <span class="playlist-title">Playlist</span>
+              <div class="window-buttons">
+                <button class="win-btn win-min" id="btnWinMin">−</button>
+                <button class="win-btn win-close" id="btnWinClose">×</button>
+              </div>
+            </div>
+
+            <input
+              type="text"
+              id="playlistSearch"
+              class="playlist-search-input"
+              placeholder="Search in playlist..."
+            />
+
+            <div class="playlist-list" id="playlistList"></div>
+
+            <button class="playlist-add-btn" id="addSongBtn">
+              <i class="fa-solid fa-plus"></i>
+              Add
+            </button>
+          </div>
+
+          <!-- Album panel -->
+          <div class="album-panel">
+            <div class="album-header">
+              <span class="album-title">Album</span>
+              <button class="album-add-btn" id="addAlbumBtn">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+
+            <div class="album-list" id="albumList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Add / Edit song -->
+    <div class="modal-backdrop" id="add-modal-backdrop">
+      <div class="add-modal">
+        <div class="add-modal-header">
+          <span class="add-title">Add / Edit song</span>
+          <button class="add-close-btn" id="add-close-btn">×</button>
+        </div>
+
+        <div class="add-modal-body">
+          <div class="add-left">
+            <div class="cover-preview-wrapper">
+              <div class="cover-preview" id="cover-preview">
+                <span class="cover-placeholder">No cover</span>
+              </div>
+              <label class="cover-upload-btn">
+                <i class="fa-solid fa-image"></i>
+                <span>Cover</span>
+                <input type="file" id="cover-file-input" accept="image/*" />
+              </label>
+            </div>
+          </div>
+
+          <div class="add-right">
+            <div class="add-row">
+              <span class="add-label">Audio file</span>
+              <button id="song-file-input" class="file-upload-btn">
+                <i class="fa-solid fa-music"></i>
+                <span id="song-file-label">Choose audio file</span>
+              </button>
+            </div>
+
+            <div class="add-row">
+              <span class="add-label">Title</span>
+              <input id="song-title-input" type="text" class="add-text" />
+            </div>
+
+            <div class="add-row">
+              <span class="add-label">Artist</span>
+              <input id="song-artist-input" type="text" class="add-text" />
+            </div>
+
+            <div class="add-actions">
+              <button class="btn-cancel" id="add-cancel">Cancel</button>
+              <button class="btn-save" id="add-save">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: New Album -->
+    <div class="modal-backdrop" id="album-modal-backdrop">
+      <div class="add-modal">
+        <div class="add-modal-header">
+          <span class="add-title">New album</span>
+          <button class="add-close-btn" id="album-close-btn">×</button>
+        </div>
+
+        <div class="add-modal-body">
+          <div class="add-left">
+            <div class="cover-preview-wrapper">
+              <div class="cover-preview" id="album-cover-preview">
+                <span class="cover-placeholder">No cover</span>
+              </div>
+              <label class="cover-upload-btn">
+                <i class="fa-solid fa-image"></i>
+                <span>Cover</span>
+                <input
+                  type="file"
+                  id="album-cover-file-input"
+                  accept="image/*"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div class="add-right">
+            <div class="add-row">
+              <span class="add-label">Album name</span>
+              <input
+                id="album-name-input"
+                type="text"
+                class="add-text"
+                placeholder="Enter album name"
+              />
+            </div>
+
+            <div class="add-actions">
+              <button class="btn-cancel" id="album-cancel">Cancel</button>
+              <button class="btn-save" id="album-save">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Choose Album to Add Track -->
+    <div class="modal-backdrop" id="choose-album-backdrop">
+      <div class="add-modal">
+        <div class="add-modal-header">
+          <span class="add-title">Add to album</span>
+          <button class="add-close-btn" id="choose-album-close">×</button>
+        </div>
+
+        <div class="add-modal-body">
+          <div class="add-right" style="width: 100%;">
+            <div class="add-row">
+              <span class="add-label">Select album</span>
+              <select id="choose-album-select" class="add-text"></select>
+            </div>
+            <div class="add-actions">
+              <button class="btn-cancel" id="choose-album-cancel">
+                Cancel
+              </button>
+              <button class="btn-save" id="choose-album-confirm">
+                Add to album
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
